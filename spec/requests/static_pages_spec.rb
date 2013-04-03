@@ -7,8 +7,12 @@ describe "StaticPages" do
   describe "Home page" do
     before { visit '/static_pages/home' }
 
+    it "should have the base title" do
+      page.should have_selector('title', text: base_title)
+    end
+
     it "should have the right title" do
-      page.should have_selector('title', text: "#{base_title} | Home")
+      page.should_not have_selector('title', text: "| Home")
     end
 
     it "should have the h1 'GLF!'" do
