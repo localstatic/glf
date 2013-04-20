@@ -10,6 +10,12 @@
   <body>
     <%= render 'layouts/header' %>
     <div class="container">
+      <% if notice %>
+        <div class="notice"><%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div class="alert"><%= alert %></div>
+      <% end %>
       <%= yield %>
       <%= render 'layouts/footer' %>
     </div>
