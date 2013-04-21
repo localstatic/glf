@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   
   has_many :places, foreign_key: "added_by", inverse_of: :user
+  has_many :polls, inverse_of: :user, foreign_key: "started_by"
 end
