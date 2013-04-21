@@ -1,0 +1,15 @@
+<%= form_for @place do |f| %>
+  <div class="controlgroup">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="controlgroup">
+    <%= f.label :url %>
+    <%= f.text_field :url %>
+  </div>
+
+  <div class="controlgroup">
+    <%= f.submit "Save" %>
+  </div>
+<% end %>

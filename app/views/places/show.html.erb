@@ -1,0 +1,12 @@
+<h1><%= @place.name %></h1>
+
+<div>
+  <label>Name</label>
+    <% if @place.url.nil? || @place.url.strip.empty? %>
+      <%= @place.name %>
+    <% else %>
+      <%= link_to @place.name, @place.url %>
+    <% end %>
+</div>
+
+<p>More info coming soon</p>
