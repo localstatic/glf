@@ -11,4 +11,5 @@ class User < ActiveRecord::Base
   
   has_many :places, inverse_of: :user, foreign_key: "added_by"
   has_many :polls_started, inverse_of: :starter, class_name: "Poll", foreign_key: "started_by"
+  has_many :votes, inverse_of: :voter
 end
