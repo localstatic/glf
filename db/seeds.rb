@@ -6,7 +6,16 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Place.create(name: "Pad Thai")
-Place.create(name: "Mongolian Grill", url: "http://www.mongoliangrilllayton.com/")
-Place.create(name: "Taste of India", url: "http://www.tasteofindiautah.com/")
-Place.create(name: "Bostons", url: "http://www.bostonsgourmet.com/home/")
+if Place.count == 0
+  Place.create(name: "Pad Thai")
+  Place.create(name: "Mongolian Grill", url: "http://www.mongoliangrilllayton.com/")
+  Place.create(name: "Taste of India", url: "http://www.tasteofindiautah.com/")
+  Place.create(name: "Boston's", url: "http://www.bostonsgourmet.com/home/")
+  Place.create(name: "Cantina", url: "http://www.cantinasouthwesterngrill.com/")
+  Place.create(name: "Vito's", url: "")
+  Place.create(name: "Dickey's BBQ", url: "http://www.dickeys.com/")
+  Place.create(name: "Mikado", url: "http://www.watkinsrg.com/Mikado_Japanese_Sushi.html")
+end
+  #Place.create(name: "", url: "")
+  #Place.create(name: "", url: "")
+  #Place.create(name: "", url: "")

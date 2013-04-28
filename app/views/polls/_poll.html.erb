@@ -1,0 +1,7 @@
+<tr>
+  <td><%= poll.created_at.strftime "%Y-%m-%d" unless poll.created_at.blank? %></td>
+  <td><%= link_to poll.name, poll_path(poll) %></td>
+  <td><%= poll.poll_options.size %></td>
+  <td></td>
+  <td><%= poll.ended_at.blank? ? "Active" : "Ended" %></td>
+</tr>

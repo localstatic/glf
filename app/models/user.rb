@@ -9,6 +9,6 @@ class User < ActiveRecord::Base
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
   
-  has_many :places, foreign_key: "added_by", inverse_of: :user
-  has_many :polls, inverse_of: :user, foreign_key: "started_by"
+  has_many :places, inverse_of: :user, foreign_key: "added_by"
+  has_many :polls_started, inverse_of: :starter, class_name: "Poll", foreign_key: "started_by"
 end

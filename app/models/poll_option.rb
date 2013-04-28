@@ -5,4 +5,5 @@ class PollOption < ActiveRecord::Base
   validates_presence_of :poll_id
 
   belongs_to :poll, inverse_of: :poll_options
+  belongs_to :place, inverse_of: :poll_options
 end

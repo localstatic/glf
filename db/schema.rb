@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20130421044431) do
   create_table "polls", :force => true do |t|
     t.string   "name"
     t.integer  "started_by"
+    t.datetime "ended_at"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

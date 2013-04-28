@@ -1,0 +1,9 @@
+<%= form_for @poll do |f| %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <div>
+    <%= f.submit "Save", class: "btn btn-primary" %>
+  </div>
+<% end %>

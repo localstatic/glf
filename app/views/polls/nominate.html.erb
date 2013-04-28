@@ -1,0 +1,18 @@
+<h2>Nominate Places</h2>
+<div class="poll-info">
+  <strong>Poll:</strong> <%= @poll.name %>
+  <br>
+</div>
+<%= form_tag add_options_poll_path(@poll), class: "form-inline" do %>
+  <div>
+    <% @places.each do |place| %>
+      <div class="controls">
+        <% checkbox_name = "places[#{place.id}]" %>
+        <%= label_tag(checkbox_name, check_box_tag(checkbox_name, place.id) + " #{place.name}", class: "checkbox") %>
+      </div>
+    <% end %>
+  </div>
+  <div>
+    <%= submit_tag "Nominate", class: "btn btn-primary" %>
+  </div>
+<% end %>

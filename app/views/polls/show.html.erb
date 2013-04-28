@@ -1,0 +1,19 @@
+<h2><%= @poll.name %></h2>
+<p>
+  <small>Poll started <%= @poll.created_at %> by <%= @poll.starter.username %></small>
+</p>
+
+<%= form_tag do %>
+  <% @poll.poll_options.each do |opt| %>
+    <% checkbox_name = "poll_options[#{opt.id}]" %>
+    <%= label_tag(checkbox_name, check_box_tag(checkbox_name, opt.id) + " #{opt.place.name}", class: "checkbox") %>
+  <% end %>
+<% end %>
+
+<div>
+  <%= link_to "Nominate places", nominate_poll_path(@poll) %>
+  <% if can? :destroy, @poll %>
+    |
+    <%= link_to "Delete poll", poll_path(@poll), confirm: "Are you sure you want to delete this poll?", method: :delete %>
+  <% end %>
+</div>

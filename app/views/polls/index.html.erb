@@ -1,0 +1,22 @@
+<h2>Polls</h2>
+<% unless @polls.nil? || @polls.size == 0 %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Name</th>
+        <th>Nominations</th>
+        <th>Winner</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render @polls %>
+    </tbody>
+  </table>
+
+  <%= will_paginate @polls %>
+  <%= link_to "Add Poll", new_poll_path %>
+<% else %>
+  <p>There are no polls yet. Maybe you should <%= link_to "start one", new_poll_path %>.</p>
+<% end %>

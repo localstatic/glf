@@ -1,5 +1,12 @@
 Glf::Application.routes.draw do
 
+  resources :polls do
+    member do
+      get 'nominate'
+      post 'add_options'
+    end
+  end
+
   resources :places
 
   devise_for :users
