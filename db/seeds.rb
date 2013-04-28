@@ -15,7 +15,5 @@ if Place.count == 0
   Place.create(name: "Vito's", url: "")
   Place.create(name: "Dickey's BBQ", url: "http://www.dickeys.com/")
   Place.create(name: "Mikado", url: "http://www.watkinsrg.com/Mikado_Japanese_Sushi.html")
+  Place.create(name: "Cafe Rio", url: "http://www.caferio.com/")
 end
-  #Place.create(name: "", url: "")
-  #Place.create(name: "", url: "")
-  #Place.create(name: "", url: "")
