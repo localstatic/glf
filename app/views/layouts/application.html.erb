@@ -10,17 +10,31 @@
   <body>
     <%= render 'layouts/header' %>
     <div class="container">
+      <% flash[:success] = flash[:error] = flash[:alert] = flash[:info] = flash[:notice] = "Test flash content. Lovely, I hope." %>
       <% if flash[:success] %>
-        <div class="success"><%= flash[:success] %></div>
+        <div clsss="success success-block">
+          <div class="text-success"><%= flash[:success] %></div>
+        </div>
       <% end %>
-      <% if flash[:info] %>
-        <div class="info"><%= flash[:info] %></div>
-      <% end %>
-      <% if flash[:notice] %>
-        <div class="notice"><%= flash[:notice] %></div>
+      <% if flash[:error] %>
+        <div clsss="error error-block">
+          <div class="text-error"><%= flash[:error] %></div>
+        </div>
       <% end %>
       <% if flash[:alert] %>
-        <div class="alert"><%= [:alert] %></div>
+        <div clsss="alert alert-block">
+          <div class="text-alert"><%= flash[:alert] %></div>
+        </div>
+      <% end %>
+      <% if flash[:info] %>
+        <div clsss="info info-block">
+          <div class="text-info"><%= flash[:info] %></div>
+        </div>
+      <% end %>
+      <% if flash[:notice] %>
+        <div class="notice notice-block">
+          <div class="text-notice"><%= flash[:notice] %></div>
+        </div>
       <% end %>
       <%= yield %>
       <%= render 'layouts/footer' %>
