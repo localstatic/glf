@@ -10,7 +10,7 @@ gem 'devise'
 gem 'cancan'
 
 group :development, :test do
-  gem 'sqlite3'
+#  gem 'sqlite3'
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'guard-spork'
@@ -46,6 +46,6 @@ group :test do
 
 end
 
-group :production do
+#group :production do
   gem 'mysql2'
-end
+#end
