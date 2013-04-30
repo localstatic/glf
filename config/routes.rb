@@ -4,6 +4,7 @@ Glf::Application.routes.draw do
     member do
       get 'nominate'
       post 'add_options'
+      post 'vote'
     end
   end
 

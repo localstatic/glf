@@ -5,4 +5,8 @@ class Poll < ActiveRecord::Base
 
   has_many :poll_options, inverse_of: :poll
   belongs_to :starter, inverse_of: :polls_started, class_name: "User", foreign_key: "started_by"
+
+  def max_votes_per_user
+    2
+  end
 end

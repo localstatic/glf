@@ -1,19 +1,74 @@
 <h2><%= @poll.name %></h2>
-<p>
-  <small>Poll started <%= @poll.created_at %> by <%= @poll.starter.username %></small>
-</p>
-
-<%= form_tag do %>
-  <% @poll.poll_options.each do |opt| %>
-    <% checkbox_name = "poll_options[#{opt.id}]" %>
-    <%= label_tag(checkbox_name, check_box_tag(checkbox_name, opt.id) + " #{opt.place.name}", class: "checkbox") %>
-  <% end %>
-<% end %>
-
-<div>
-  <%= link_to "Nominate places", nominate_poll_path(@poll) %>
-  <% if can? :destroy, @poll %>
-    |
-    <%= link_to "Delete poll", poll_path(@poll), confirm: "Are you sure you want to delete this poll?", method: :delete %>
-  <% end %>
+<div class="poll-meta">
+  <p>
+    Poll started <%= @poll.created_at %> by <%= @poll.starter.username %>.
+  </p>
+  <div>
+    <%= link_to "Nominate places", nominate_poll_path(@poll) %>
+    <% if can? :destroy, @poll %>
+      |
+      <%= link_to "Delete poll", poll_path(@poll), confirm: "Are you sure you want to delete this poll?", method: :delete %>
+    <% end %>
+  </div>
 </div>
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#vote" data-toggle="tab">Vote</a></li>
+  <li><a href="#results" data-toggle="tab">Results</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="vote">
+    <% unless @poll.poll_options.empty? %>
+      <%= form_tag vote_poll_path @poll do %>
+        <% @poll.poll_options.each do |opt| %>
+          <% votes = opt.votes.where(user_id: current_user.id) %>
+          <% checkbox_name = "poll_options[#{opt.id}]" %>
+          <% checkbox_checked = false %>
+          <% checkbox_options = {} %>
+
+          <% unless votes.empty? %>
+            <% checkbox_checked = true %>
+            <% checkbox_options[:disabled] = true %>
+          <% end %>
+
+          <label class="checkbox">
+            <%= check_box_tag(checkbox_name, opt.id, checkbox_checked, checkbox_options) %>
+            <%= place_name_link opt.place %>
+          </label>
+        <% end %>
+        <%= submit_tag "Vote", class: "btn btn-primary" %>
+      <% end %>
+    <% else %>
+      <p>There are no places nominated yet. Why not <%= link_to "nominate something", nominate_poll_path(@poll) %>?</p>
+    <% end %>
+  </div>
+  <div class="tab-pane" id="results">
+    <% unless @poll.poll_options.empty? %>
+      <% if @poll.ended_at.blank? %>
+        <p>Because this poll is still active, the results below are preliminary and may change.</p>
+      <% end %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Place</th>
+            <th>Votes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @poll.poll_options.sort_by! { |opt| opt.votes.count } %>
+          <% @poll.poll_options.reverse_each do |opt| %>
+            <tr>
+              <td><%= place_name_link opt.place %></td>
+              <td><%= opt.votes.count %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>Voting hasn't started yet. Check back later.</p>
+    <% end %>
+  </div>
+</div>
+
+
