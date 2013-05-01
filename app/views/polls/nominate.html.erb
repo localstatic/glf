@@ -8,7 +8,7 @@
     <% @places.each do |place| %>
       <div class="controls">
         <% checkbox_name = "places[#{place.id}]" %>
-        <%= label_tag(checkbox_name, check_box_tag(checkbox_name, place.id) + " #{place.name}", class: "checkbox") %>
+        <%= label_tag(checkbox_name, check_box_tag(checkbox_name, place.id) + " " + place_name_link(place), class: "checkbox") %>
       </div>
     <% end %>
   </div>
