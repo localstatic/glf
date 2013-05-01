@@ -27,8 +27,9 @@ class PollsController < ApplicationController
   end
 
   def add_options
-    params[:places].each do |val|
-      @poll.poll_options.create(place_id: val[0])
+    params[:places].values.each do |place_id|
+      existing = @poll.poll_options.detect { |po| po.place_id == place_id.to_i }
+      @poll.poll_options.create(place_id: place_id) if existing.nil?
     end
     redirect_to poll_path(@poll)
   end
