@@ -10,7 +10,6 @@
   <body>
     <%= render 'layouts/header' %>
     <div class="container">
-      <% flash[:success] = flash[:error] = flash[:alert] = flash[:info] = flash[:notice] = "Test flash content. Lovely, I hope." %>
       <% if flash[:success] %>
         <div clsss="success success-block">
           <div class="text-success"><%= flash[:success] %></div>
