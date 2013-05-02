@@ -9,6 +9,8 @@ gem 'bootstrap-will_paginate'
 gem 'devise'
 gem 'cancan'
 
+gem 'mysql2'
+
 group :development, :test do
 #  gem 'sqlite3'
   gem 'rspec-rails'
@@ -24,7 +26,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+  gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
 end
@@ -47,5 +49,4 @@ group :test do
 end
 
 #group :production do
-  gem 'mysql2'
 #end
