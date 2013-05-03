@@ -1,4 +1,6 @@
 class PollsController < ApplicationController
+  load_and_authorize_resource
+
   before_filter :load_poll, only: [:show, :edit, :update, :nominate, :add_options, :vote]
   before_filter :load_places, only: [:show]
   before_filter :load_current_votes, only: [:show, :vote]
@@ -78,7 +80,7 @@ class PollsController < ApplicationController
   end
 
   def load_current_votes
-    @current_votes = current_user.votes.where poll_option_id: @poll.poll_options
+    @current_votes = current_user.votes.where(poll_option_id: @poll.poll_options) unless current_user.nil? || @poll.poll_options.empty?
   end
 
 end

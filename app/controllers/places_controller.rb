@@ -1,4 +1,6 @@
 class PlacesController < ApplicationController
+  load_and_authorize_resource
+
   before_filter :find_place, only: [:show, :edit, :update]
 
   def index

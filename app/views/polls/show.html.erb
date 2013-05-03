@@ -22,22 +22,34 @@
     <% unless @poll.poll_options.empty? %>
       <%= form_tag vote_poll_path @poll do %>
         <% @poll.poll_options.each do |opt| %>
-          <% votes = opt.votes.where(user_id: current_user.id) %>
-          <% checkbox_name = "poll_options[#{opt.id}]" %>
-          <% checkbox_checked = false %>
-          <% checkbox_options = {} %>
+          <% if can? :vote, @poll %>
+            <% unless current_user.nil? %>
+              <% votes = opt.votes.where(user_id: current_user.id) %>
+            <% else %>
+              <% votes = [] %>
+            <% end %>
+            <% checkbox_name = "poll_options[#{opt.id}]" %>
+            <% checkbox_checked = false %>
+            <% checkbox_options = {} %>
 
-          <% unless votes.empty? %>
-            <% checkbox_checked = true %>
-            <% checkbox_options[:disabled] = true %>
+            <% unless votes.empty? %>
+              <% checkbox_checked = true %>
+              <% checkbox_options[:disabled] = true %>
+            <% end %>
+
+            <label class="checkbox">
+              <%= check_box_tag(checkbox_name, opt.id, checkbox_checked, checkbox_options) %>
+              <%= place_name_link opt.place %>
+            </label>
+          <% else %>
+            <label class="checkbox">
+              <%= place_name_link opt.place %>
+            </label>
           <% end %>
-
-          <label class="checkbox">
-            <%= check_box_tag(checkbox_name, opt.id, checkbox_checked, checkbox_options) %>
-            <%= place_name_link opt.place %>
-          </label>
         <% end %>
-        <%= submit_tag "Vote", class: "btn btn-primary" %>
+        <% if can? :vote, @poll %>
+          <%= submit_tag "Vote", class: "btn btn-primary" %>
+        <% end %>
       <% end %>
     <% else %>
       <p>There are no places nominated yet. Why not <%= link_to "nominate something", nominate_poll_path(@poll) %>?</p>

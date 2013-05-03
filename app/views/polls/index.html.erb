@@ -16,7 +16,9 @@
   </table>
 
   <%= will_paginate @polls %>
-  <%= link_to "Add Poll", new_poll_path %>
+  <% if can? :create, Poll %>
+    <%= link_to "Add Poll", new_poll_path %>
+  <% end %>
 <% else %>
   <p>There are no polls yet. Maybe you should <%= link_to "start one", new_poll_path %>.</p>
 <% end %>

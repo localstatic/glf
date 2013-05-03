@@ -5,8 +5,12 @@
       <nav>
         <ul class="nav pull-right">
           <li><%= link_to "Home", root_path %></li>
-          <li><%= link_to "Polls", polls_path %></li>
+          <% if can? :read, Poll %>
+            <li><%= link_to "Polls", polls_path %></li>
+          <% end %>
+          <% if can? :read, Place %>
           <li><%= link_to "Places", places_path %></li>
+          <% end %>
           <li class="dropdown">
             <% if user_signed_in? %>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome <%= current_user.username %> <b class="caret"></b></a>

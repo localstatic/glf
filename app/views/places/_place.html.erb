@@ -6,9 +6,13 @@
       <%= link_to place.name, place.url, target: "_blank" %>
     <% end %>
   </td>
-  <td>[Coming Soon]</td>
+  <%#<td>[Coming Soon]</td>%>
   <td>
-    <%= link_to "Edit", edit_place_path(place) %>
-    <%= link_to "Delete", place_path(place), confirm: "Are you sure you want to delete this place?", method: :delete %>
+    <% if can? :edit, place %>
+      <%= link_to "Edit", edit_place_path(place) %>
+    <% end %>
+    <% if can? :destroy, place %>
+      <%= link_to "Delete", place_path(place), confirm: "Are you sure you want to delete this place?", method: :delete %>
+    <% end %>
   </td>
 </tr>
