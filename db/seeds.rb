@@ -17,3 +17,7 @@ if Place.count == 0
   Place.create(name: "Mikado", url: "http://www.watkinsrg.com/Mikado_Japanese_Sushi.html")
   Place.create(name: "Cafe Rio", url: "http://www.caferio.com/")
 end
+
+if Role.count == 0
+  Role.create(name: "Administrator", machine_name: "admin")
+end

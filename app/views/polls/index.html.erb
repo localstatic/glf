@@ -20,5 +20,9 @@
     <%= link_to "Add Poll", new_poll_path %>
   <% end %>
 <% else %>
-  <p>There are no polls yet. Maybe you should <%= link_to "start one", new_poll_path %>.</p>
+  <p>There are no polls yet.
+    <% if can? :create, Poll %>
+      Maybe you should <%= link_to "start one", new_poll_path %>.
+    <% end %>
+  </p>
 <% end %>

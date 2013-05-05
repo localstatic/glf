@@ -4,11 +4,17 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    unless user.id.nil?
+    if user.has_role? :admin
       can :manage, :all
-      can :vote, Poll
+    else
+      can :read, :all
     end
 
-    can :read, :all
+    unless user.id.nil?
+      can :vote, Poll
+      can [:create, :update], Place
+      can [:nominate, :add_options], Poll
+    end
+
   end
 end

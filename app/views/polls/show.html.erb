@@ -3,13 +3,21 @@
   <p>
     Poll started <%= @poll.created_at %> by <%= @poll.starter.username %>.
   </p>
-  <div>
-    <%= link_to "Nominate places", nominate_poll_path(@poll) %>
-    <% if can? :destroy, @poll %>
-      |
-      <%= link_to "Delete poll", poll_path(@poll), confirm: "Are you sure you want to delete this poll?", method: :delete %>
-    <% end %>
-  </div>
+  <%
+  links = []
+  if can? :nominate, @poll
+    links << link_to("Nominate places", nominate_poll_path(@poll))
+  end
+
+  if can? :destroy, @poll
+    links << link_to("Delete poll", poll_path(@poll), confirm: "Are you sure you want to delete this poll?", method: :delete)
+  end
+  %>
+  <% unless links.empty? %>
+    <div>
+      <%= raw links.join(" | ") %>
+    </div>
+  <% end %>
 </div>
 
 <ul class="nav nav-tabs">
@@ -73,37 +81,37 @@
             </tr>
           <% end %>
         </tbody>
-        </table>
-      <% else %>
-        <p>No one has voted yet.</p>
-      <% end %>
-    </div>
-    <div class="tab-pane" id="results">
-      <% unless @poll.poll_options.empty? %>
-        <% if @poll.ended_at.blank? %>
-          <p>Because this poll is still active, the results below are preliminary and may change.</p>
-        <% end %>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Place</th>
-              <th>Votes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @poll.poll_options.sort_by! { |opt| opt.votes.count } %>
-            <% @poll.poll_options.reverse_each do |opt| %>
-              <tr>
-                <td><%= place_name_link opt.place %></td>
-                <td><%= opt.votes.count %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% else %>
-        <p>Voting hasn't started yet. Check back later.</p>
-      <% end %>
-    </div>
+      </table>
+    <% else %>
+      <p>No one has voted yet.</p>
+    <% end %>
   </div>
+  <div class="tab-pane" id="results">
+    <% unless @poll.poll_options.empty? %>
+      <% if @poll.ended_at.blank? %>
+        <p>Because this poll is still active, the results below are preliminary and may change.</p>
+      <% end %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Place</th>
+            <th>Votes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @poll.poll_options.sort_by! { |opt| opt.votes.count } %>
+          <% @poll.poll_options.reverse_each do |opt| %>
+            <tr>
+              <td><%= place_name_link opt.place %></td>
+              <td><%= opt.votes.count %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>Voting hasn't started yet. Check back later.</p>
+    <% end %>
+  </div>
+</div>
 
 
