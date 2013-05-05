@@ -14,6 +14,7 @@
 
 <ul class="nav nav-tabs">
   <li class="active"><a href="#vote" data-toggle="tab">Vote</a></li>
+  <li><a href="#participation" data-toggle="tab">Participation</a></li>
   <li><a href="#results" data-toggle="tab">Results</a></li>
 </ul>
 
@@ -55,32 +56,54 @@
       <p>There are no places nominated yet. Why not <%= link_to "nominate something", nominate_poll_path(@poll) %>?</p>
     <% end %>
   </div>
-  <div class="tab-pane" id="results">
-    <% unless @poll.poll_options.empty? %>
-      <% if @poll.ended_at.blank? %>
-        <p>Because this poll is still active, the results below are preliminary and may change.</p>
-      <% end %>
+  <div class="tab-pane" id="participation">
+    <% unless @votes_by_user.empty? %>
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>Place</th>
-            <th>Votes</th>
+            <th>Voter</th>
+            <th># Votes</th>
           </tr>
         </thead>
         <tbody>
-          <% @poll.poll_options.sort_by! { |opt| opt.votes.count } %>
-          <% @poll.poll_options.reverse_each do |opt| %>
+          <% @votes_by_user.each do |user_id, votes| %>
             <tr>
-              <td><%= place_name_link opt.place %></td>
-              <td><%= opt.votes.count %></td>
+              <td><%= User.find(user_id).username %></td>
+              <td><%= votes.size %></td>
             </tr>
           <% end %>
         </tbody>
-      </table>
-    <% else %>
-      <p>Voting hasn't started yet. Check back later.</p>
-    <% end %>
+        </table>
+      <% else %>
+        <p>No one has voted yet.</p>
+      <% end %>
+    </div>
+    <div class="tab-pane" id="results">
+      <% unless @poll.poll_options.empty? %>
+        <% if @poll.ended_at.blank? %>
+          <p>Because this poll is still active, the results below are preliminary and may change.</p>
+        <% end %>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Place</th>
+              <th>Votes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @poll.poll_options.sort_by! { |opt| opt.votes.count } %>
+            <% @poll.poll_options.reverse_each do |opt| %>
+              <tr>
+                <td><%= place_name_link opt.place %></td>
+                <td><%= opt.votes.count %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p>Voting hasn't started yet. Check back later.</p>
+      <% end %>
+    </div>
   </div>
-</div>
 
 

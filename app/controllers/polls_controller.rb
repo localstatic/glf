@@ -43,6 +43,13 @@ class PollsController < ApplicationController
   end
 
   def show
+    @votes_by_user = @poll.votes.each_with_object({}) do |vote, hsh|
+      if hsh[vote.user_id].nil?
+        hsh[vote.user_id] = [vote]
+      else
+        hsh[vote.user_id] << vote
+      end
+    end
   end
 
   def destroy
