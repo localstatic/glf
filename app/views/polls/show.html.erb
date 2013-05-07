@@ -2,6 +2,10 @@
 <div class="poll-meta">
   <p>
     Poll started <%= @poll.created_at %> by <%= @poll.starter.username %>.
+    <% unless @poll.ended_at.nil? %>
+      <br>
+      Poll closed <%= @poll.ended_at %>.
+    <% end %>
   </p>
   <%
   links = []
