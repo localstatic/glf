@@ -6,7 +6,6 @@
       <%= link_to place.name, place.url, target: "_blank" %>
     <% end %>
   </td>
-  <%#<td>[Coming Soon]</td>%>
   <td>
     <% if can? :edit, place %>
       <%= link_to "Edit", edit_place_path(place) %>
