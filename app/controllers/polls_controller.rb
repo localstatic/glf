@@ -1,12 +1,12 @@
 class PollsController < ApplicationController
   load_and_authorize_resource
 
-  before_filter :load_poll, only: [:show, :edit, :update, :nominate, :add_options, :vote]
+  before_filter :load_poll, only: [:show, :edit, :update, :nominate, :add_options, :vote, :close]
   before_filter :load_places, only: [:show]
   before_filter :load_current_votes, only: [:show, :vote]
 
   def index
-    @polls = Poll.paginate(page: params[:page])
+    @polls = Poll.order("ended_at IS NOT NULL, ended_at DESC, created_at DESC").paginate(page: params[:page])
   end
 
   def new
@@ -50,6 +50,16 @@ class PollsController < ApplicationController
         hsh[vote.user_id] << vote
       end
     end
+  end
+
+  def close
+    @poll.ended_at = Time.now
+    if @poll.save
+      flash[:success] = "Poll closed."
+    else
+      flash[:error] = "Unable to close poll."
+    end
+    redirect_to poll_path(@poll)
   end
 
   def destroy

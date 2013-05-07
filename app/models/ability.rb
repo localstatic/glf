@@ -11,9 +11,13 @@ class Ability
     end
 
     unless user.id.nil?
-      # Normal logged in users can...
-      can [:create, :update], Place # create and update Places
-      can [:create, :nominate, :add_options, :vote], Poll # Create, nominate and vote in Polls
+      ## Normal logged in users can...
+
+      # Create and update Places
+      can [:create, :update], Place
+
+      # Create, nominate and vote in Polls
+      can [:create, :nominate, :add_options, :vote], Poll, ended_at: nil
     end
 
   end

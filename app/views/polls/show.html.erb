@@ -9,6 +9,10 @@
     links << link_to("Nominate places", nominate_poll_path(@poll))
   end
 
+  if can? :close, @poll
+    links << link_to("Close poll", close_poll_path(@poll), confirm: "Are you sure you want to close this poll?", method: :put)
+  end
+
   if can? :destroy, @poll
     links << link_to("Delete poll", poll_path(@poll), confirm: "Are you sure you want to delete this poll?", method: :delete)
   end
@@ -20,14 +24,15 @@
   <% end %>
 </div>
 
+<% active_tab = @poll.ended_at.nil? ? "vote" : "results" %>
 <ul class="nav nav-tabs">
-  <li class="active"><a href="#vote" data-toggle="tab">Vote</a></li>
-  <li><a href="#participation" data-toggle="tab">Participation</a></li>
-  <li><a href="#results" data-toggle="tab">Results</a></li>
+  <% ["vote", "participation", "results"].each do |tab| %>
+    <li class="<%= "active" if active_tab == tab %>"><a href="#<%= tab %>" data-toggle="tab"><%= tab.titleize %></a></li>
+  <% end %>
 </ul>
 
 <div class="tab-content">
-  <div class="tab-pane active" id="vote">
+  <div class="tab-pane<%= " active" if active_tab == "vote" %>" id="vote">
     <% unless @poll.poll_options.empty? %>
       <%= form_tag vote_poll_path @poll do %>
         <% @poll.poll_options.each do |opt| %>
@@ -64,7 +69,7 @@
       <p>There are no places nominated yet. Why not <%= link_to "nominate something", nominate_poll_path(@poll) %>?</p>
     <% end %>
   </div>
-  <div class="tab-pane" id="participation">
+  <div class="tab-pane<%= " active" if active_tab == "participation" %>" id="participation">
     <% unless @votes_by_user.empty? %>
       <table class="table table-striped">
         <thead>
@@ -86,7 +91,7 @@
       <p>No one has voted yet.</p>
     <% end %>
   </div>
-  <div class="tab-pane" id="results">
+  <div class="tab-pane<%= " active" if active_tab == "results" %>" id="results">
     <% unless @poll.poll_options.empty? %>
       <% if @poll.ended_at.blank? %>
         <p>Because this poll is still active, the results below are preliminary and may change.</p>
@@ -100,8 +105,9 @@
         </thead>
         <tbody>
           <% @poll.poll_options.sort_by! { |opt| opt.votes.count } %>
+          <% max_count = @poll.poll_options.last.votes.count %>
           <% @poll.poll_options.reverse_each do |opt| %>
-            <tr>
+            <tr class="<%= "success" if !@poll.ended_at.nil? && opt.votes.count == max_count %>">
               <td><%= place_name_link opt.place %></td>
               <td><%= opt.votes.count %></td>
             </tr>
