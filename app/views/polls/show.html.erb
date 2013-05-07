@@ -9,11 +9,11 @@
   </p>
   <%
   links = []
-  if can? :nominate, @poll
+  if @poll.open? && can?(:nominate, @poll)
     links << link_to("Nominate places", nominate_poll_path(@poll))
   end
 
-  if can? :close, @poll
+  if @poll.open? && can?(:close, @poll)
     links << link_to("Close poll", close_poll_path(@poll), confirm: "Are you sure you want to close this poll?", method: :put)
   end
 

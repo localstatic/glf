@@ -10,4 +10,8 @@ class Poll < ActiveRecord::Base
   def max_votes_per_user
     2
   end
+
+  def open?
+    self.ended_at.nil?
+  end
 end
