@@ -11,9 +11,9 @@ class Ability
     end
 
     unless user.id.nil?
-      can :vote, Poll
-      can [:create, :update], Place
-      can [:nominate, :add_options], Poll
+      # Normal logged in users can...
+      can [:create, :update], Place # create and update Places
+      can [:create, :nominate, :add_options, :vote], Poll # Create, nominate and vote in Polls
     end
 
   end
