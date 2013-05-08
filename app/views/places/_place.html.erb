@@ -3,7 +3,7 @@
     <% if place.url.nil? || place.url.strip.empty? %>
       <%= place.name %>
     <% else %>
-      <%= link_to place.name, place.url, target: "_blank" %>
+      <%= place_name_link place %>
     <% end %>
   </td>
   <td>
