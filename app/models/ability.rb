@@ -6,6 +6,9 @@ class Ability
 
     if user.has_role? :admin
       can :manage, :all
+      cannot [:nominate, :add_options, :vote], Poll do |poll|
+        !poll.ended_at.nil?
+      end
     else
       can :read, :all
     end
