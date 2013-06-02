@@ -1,0 +1,33 @@
+<h2><%= @user.username %></h2>
+
+<div class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label">Name</label>
+    <div class="controls readonly">
+      <%= @user.username %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Email</label>
+    <div class="controls readonly">
+      <%= @user.email %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Login Count</label>
+    <div class="controls readonly">
+      <%= @user.sign_in_count %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Last Login</label>
+    <div class="controls readonly">
+      <%= @user.current_sign_in_at.nil? ? @user.last_sign_in_at : @user.current_sign_in_at %>
+    </div>
+  </div>
+</div>
+
+

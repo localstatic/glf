@@ -12,6 +12,9 @@ Glf::Application.routes.draw do
   resources :places
 
   devise_for :users
+  scope "/admin" do
+    resources :users
+  end
 
   root to: 'static_pages#home'
 
