@@ -12,7 +12,7 @@
           <%= label_tag(checkbox_name, check_box_tag(checkbox_name, place.id) + " " + place_name_link(place), class: "checkbox") %>
         </td>
         <td>
-          <%= [place.city, place.state].join(", ").gsub(/^, /, "") %>
+          <%= [place.city, place.state].join(", ").gsub(/^, /, "").gsub(/, $/, "") %>
         </td>
       </tr>
     <% end %>
