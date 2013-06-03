@@ -6,12 +6,14 @@
       <%= place_name_link place %>
     <% end %>
   </td>
+  <td><%= place.city %></td>
+  <td><%= place.state %></td>
   <td>
     <% if can? :edit, place %>
-      <%= link_to "Edit", edit_place_path(place) %>
+      <%= link_to "Edit", edit_place_path(place), class: "btn btn-mini" %>
     <% end %>
     <% if can? :destroy, place %>
-      <%= link_to "Delete", place_path(place), confirm: "Are you sure you want to delete this place?", method: :delete %>
+      <%= link_to "Delete", place_path(place), confirm: "Are you sure you want to delete this place?", method: :delete, class: "btn btn-mini btn-danger" %>
     <% end %>
   </td>
 </tr>
