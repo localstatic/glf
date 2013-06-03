@@ -25,7 +25,7 @@ class PollsController < ApplicationController
   end
 
   def nominate
-    @places = Place.all
+    @places = Place.order("name")
   end
 
   def add_options
