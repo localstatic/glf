@@ -28,7 +28,13 @@
   <% end %>
 </div>
 
-<% user_votes = current_user.nil? ? [] : @votes_by_user[current_user.id] %>
+<% unless current_user.nil? %>
+  <% user_votes = @votes_by_user[current_user.id] %>
+<% end %>
+
+<% if user_votes.nil? %>
+  <% user_votes = [] %>
+<% end %>
 
 <% if @poll.open? %>
   <% active_tab = user_votes.count >= @poll.max_votes_per_user ? "results" : "vote" %>
