@@ -28,7 +28,14 @@
   <% end %>
 </div>
 
-<% active_tab = @poll.ended_at.nil? ? "vote" : "results" %>
+<% user_votes = current_user.nil? ? [] : @votes_by_user[current_user.id] %>
+
+<% if @poll.open? %>
+  <% active_tab = user_votes.count >= @poll.max_votes_per_user ? "results" : "vote" %>
+<% else %>
+  <% active_tab = "results" %>
+<% end %>
+
 <ul class="nav nav-tabs">
   <% ["vote", "participation", "results"].each do |tab| %>
     <li class="<%= "active" if active_tab == tab %>"><a href="#<%= tab %>" data-toggle="tab"><%= tab.titleize %></a></li>
@@ -46,6 +53,7 @@
             <% else %>
               <% votes = [] %>
             <% end %>
+
             <% checkbox_name = "poll_options[#{opt.id}]" %>
             <% checkbox_checked = false %>
             <% checkbox_options = {} %>
