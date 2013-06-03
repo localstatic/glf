@@ -6,8 +6,7 @@
       <%= place_name_link place %>
     <% end %>
   </td>
-  <td><%= place.city %></td>
-  <td><%= place.state %></td>
+  <td><%= [place.city, place.state].join(", ").gsub(/^, /, "").gsub(/, $/, "") %></td>
   <td>
     <% if can? :edit, place %>
       <%= link_to "Edit", edit_place_path(place), class: "btn btn-mini" %>
