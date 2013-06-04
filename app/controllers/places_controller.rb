@@ -4,7 +4,12 @@ class PlacesController < ApplicationController
   before_filter :find_place, only: [:show, :edit, :update]
 
   def index
-    @places = Place.paginate(page: params[:page], per_page: 50)
+    conditions = []
+    unless params[:all]
+      conditions << "disabled IS NULL OR disabled = 0"
+    end
+
+    @places = Place.paginate(page: params[:page], per_page: 50, conditions: conditions, order: :name)
   end
 
   def show

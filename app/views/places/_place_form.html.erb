@@ -1,35 +1,56 @@
-<%= form_for @place do |f| %>
+<%= form_for @place, html: { class: "form-horizontal" } do |f| %>
   <div class="controlgroup">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.label :name, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :name %>
+    </div>
   </div>
 
   <div class="controlgroup">
-    <%= f.label :url %>
-    <%= f.text_field :url %>
+    <%= f.label :url, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :url %>
+    </div>
   </div>
 
   <div class="controlgroup">
-    <%= f.label :address %>
-    <%= f.text_field :address %>
+    <%= f.label :address, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :address %>
+    </div>
   </div>
 
   <div class="controlgroup">
-    <%= f.label :city %>
-    <%= f.text_field :city %>
+    <%= f.label :city, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :city %>
+    </div>
   </div>
 
   <div class="controlgroup">
-    <%= f.label :state %>
-    <%= f.text_field :state %>
+    <%= f.label :state, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :state %>
+    </div>
   </div>
 
   <div class="controlgroup">
-    <%= f.label :zipcode %>
-    <%= f.text_field :zipcode %>
+    <%= f.label :zipcode, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :zipcode %>
+    </div>
   </div>
 
   <div class="controlgroup">
-    <%= f.submit "Save" %>
+    <%= f.label :disabled, class: "control-label" %>
+    <div class="controls">
+      <%= f.check_box :disabled %>
+    </div>
+  </div>
+
+  <div class="controlgroup">
+    <div class="controls">
+      <%= f.submit "Save", class: "btn btn-primary" %>
+    </div>
   </div>
 <% end %>

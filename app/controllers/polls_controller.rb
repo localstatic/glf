@@ -25,7 +25,7 @@ class PollsController < ApplicationController
   end
 
   def nominate
-    @places = Place.order("name")
+    @places = Place.where("disabled IS NULL OR disabled = 0").order("name")
   end
 
   def add_options

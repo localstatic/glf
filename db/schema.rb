@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130603031032) do
+ActiveRecord::Schema.define(:version => 20130604030802) do
 
   create_table "places", :force => true do |t|
     t.string   "name"
@@ -20,9 +20,10 @@ ActiveRecord::Schema.define(:version => 20130603031032) do
     t.string   "city"
     t.string   "state"
     t.string   "zipcode"
+    t.boolean  "disabled",   :default => false
     t.integer  "added_by"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "poll_options", :force => true do |t|
