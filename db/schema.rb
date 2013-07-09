@@ -11,10 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130701021627) do
+ActiveRecord::Schema.define(:version => 20130709014830) do
 
   create_table "places", :force => true do |t|
     t.string   "name"
+    t.text     "description"
     t.string   "url",          :default => ""
     t.string   "address"
     t.string   "city"

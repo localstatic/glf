@@ -8,6 +8,9 @@
     <% if place.disabled? %>
       <span class="text-warning"><%= "[DISABLED] " %></span>
     <% end %>
+    <span class="description">
+      <%= " - " + place.description.truncate(40) if place.description.present? %> 
+    </span>
   </td>
   <td><%= [place.city, place.state].join(", ").gsub(/^, /, "").gsub(/, $/, "") %></td>
   <td>
