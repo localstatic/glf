@@ -8,7 +8,7 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'devise'
 gem 'cancan'
-
+gem 'destroyed_at'
 gem 'mysql2'
 
 group :development, :test do

@@ -11,46 +11,56 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604030802) do
+ActiveRecord::Schema.define(:version => 20130701021627) do
 
   create_table "places", :force => true do |t|
     t.string   "name"
-    t.string   "url",        :default => ""
+    t.string   "url",          :default => ""
     t.string   "address"
     t.string   "city"
     t.string   "state"
     t.string   "zipcode"
-    t.boolean  "disabled",   :default => false
+    t.boolean  "disabled",     :default => false
     t.integer  "added_by"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "destroyed_by"
+    t.datetime "destroyed_at"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   create_table "poll_options", :force => true do |t|
     t.integer  "poll_id"
     t.integer  "place_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "destroyed_by"
+    t.datetime "destroyed_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "polls", :force => true do |t|
     t.string   "name"
     t.integer  "started_by"
     t.datetime "ended_at"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "destroyed_by"
+    t.datetime "destroyed_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "role_assignments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "role_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "destroyed_by"
+    t.datetime "destroyed_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.string   "machine_name"
+    t.datetime "destroyed_by"
+    t.datetime "destroyed_at"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
@@ -68,6 +78,8 @@ ActiveRecord::Schema.define(:version => 20130604030802) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "is_admin",               :default => 0,  :null => false
+    t.datetime "destroyed_by"
+    t.datetime "destroyed_at"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
   end
@@ -79,6 +91,8 @@ ActiveRecord::Schema.define(:version => 20130604030802) do
   create_table "votes", :force => true do |t|
     t.integer  "poll_option_id"
     t.integer  "user_id"
+    t.datetime "destroyed_by"
+    t.datetime "destroyed_at"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end

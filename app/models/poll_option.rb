@@ -1,4 +1,6 @@
 class PollOption < ActiveRecord::Base
+  include ModelCommon
+
   attr_accessible :place_id, :poll_id
 
   validates_presence_of :place_id

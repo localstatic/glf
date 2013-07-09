@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include ModelCommon
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -17,6 +19,10 @@ class User < ActiveRecord::Base
 
   def has_role?(role_sym)
     roles.any? { |r| r.machine_name.to_sym == role_sym }
+  end
+
+  def active_for_authentication?
+    super && !destroyed?
   end
 
 end

@@ -1,4 +1,6 @@
 class Poll < ActiveRecord::Base
+  include ModelCommon
+
   attr_accessible :name, :ended_at
 
   validates_presence_of :name
