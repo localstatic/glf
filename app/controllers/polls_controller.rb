@@ -29,11 +29,16 @@ class PollsController < ApplicationController
   end
 
   def add_options
-    params[:places].values.each do |place_id|
-      existing = @poll.poll_options.detect { |po| po.place_id == place_id.to_i }
-      @poll.poll_options.create(place_id: place_id) if existing.nil?
+    if params[:places].nil?
+      flash[:error] = "You must select at least one place to nominate."
+      redirect_to nominate_poll_path(@poll)
+    else
+      params[:places].values.each do |place_id|
+        existing = @poll.poll_options.detect { |po| po.place_id == place_id.to_i }
+        @poll.poll_options.create(place_id: place_id) if existing.nil?
+      end
+      redirect_to poll_path(@poll)
     end
-    redirect_to poll_path(@poll)
   end
 
   def edit
@@ -78,8 +83,8 @@ class PollsController < ApplicationController
       else
         flash[:error] = "Unable to process #{"vote".pluralize(params[:poll_options].size)}. The maximum allowed votes for this poll is #{@poll.max_votes_per_user}."
       end
+      redirect_to poll_path(@poll)
     end
-    redirect_to poll_path(@poll)
   end
 
   private
