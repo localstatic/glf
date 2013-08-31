@@ -75,15 +75,35 @@ class PollsController < ApplicationController
 
   def vote
     unless params[:poll_options].nil? || params[:poll_options].empty?
-      current_votes = current_user.votes.where(poll_option_id: @poll.poll_options.map { |o| o.id })
-      if current_votes.size + params[:poll_options].size <= @poll.max_votes_per_user
+      if check_votes
         params[:poll_options].values.each do |id|
           current_user.votes.create(poll_option_id: id)
         end
-      else
-        flash[:error] = "Unable to process #{"vote".pluralize(params[:poll_options].size)}. The maximum allowed votes for this poll is #{@poll.max_votes_per_user}."
       end
       redirect_to poll_path(@poll)
+    end
+  end
+
+  protected
+
+  def check_votes
+    current_votes = current_user.votes.where(poll_option_id: @poll.poll_options.map { |o| o.id })
+
+    vote_options = []
+    vote_options += current_votes.map { |v| v.poll_option_id }
+    vote_options += params[:poll_options].map { |v| v[0].to_i }
+
+    vote_counts = vote_options.inject(Hash.new(0)) { |counts, opt| counts.update(opt => counts[opt] + 1) }
+    vote_count = vote_counts.values.reduce(:+)
+
+    if vote_count <= 0
+      flash[:error] = "No votes submitted."
+      false
+    elsif vote_count > @poll.max_votes_per_user
+      flash[:error] = "Unable to process #{"vote".pluralize(params[:poll_options].size)}. The maximum allowed votes for this poll is #{@poll.max_votes_per_user}."
+      false
+    else
+      true
     end
   end
 
