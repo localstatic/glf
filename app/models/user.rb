@@ -11,11 +11,11 @@ class User < ActiveRecord::Base
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
   
-  has_many :places, inverse_of: :user, foreign_key: "added_by"
-  has_many :polls_started, inverse_of: :starter, class_name: "Poll", foreign_key: "started_by"
-  has_many :votes, inverse_of: :voter
-  has_many :role_assignments
-  has_many :roles, through: :role_assignments
+  has_many :places, inverse_of: :user, foreign_key: "added_by", dependent: :destroy
+  has_many :polls_started, inverse_of: :starter, class_name: "Poll", foreign_key: "started_by", dependent: :destroy
+  has_many :votes, inverse_of: :voter, dependent: :destroy
+  has_many :role_assignments, dependent: :destroy
+  has_many :roles, through: :role_assignments, dependent: :destroy
 
   def has_role?(role_sym)
     roles.any? { |r| r.machine_name.to_sym == role_sym }

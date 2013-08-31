@@ -8,5 +8,5 @@ class PollOption < ActiveRecord::Base
 
   belongs_to :poll, inverse_of: :poll_options
   belongs_to :place, inverse_of: :poll_options
-  has_many :votes, inverse_of: :poll_option
+  has_many :votes, inverse_of: :poll_option, dependent: :destroy
 end
