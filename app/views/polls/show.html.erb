@@ -69,12 +69,12 @@
               <% checkbox_options[:disabled] = true %>
             <% end %>
 
-            <label class="checkbox">
+            <label class="place checkbox">
               <%= check_box_tag(checkbox_name, opt.id, checkbox_checked, checkbox_options) %>
               <%= place_name opt.place %>
             </label>
           <% else %>
-            <label class="checkbox">
+            <label class="place checkbox">
               <%= place_name opt.place %>
             </label>
           <% end %>
@@ -125,7 +125,7 @@
           <% @poll.poll_options.sort_by! { |opt| opt.votes.count } %>
           <% max_count = @poll.poll_options.last.votes.count %>
           <% @poll.poll_options.reverse_each do |opt| %>
-            <tr class="<%= "success" if !@poll.ended_at.nil? && opt.votes.count == max_count %>">
+            <tr class="place <%= "success" if !@poll.ended_at.nil? && opt.votes.count == max_count %>">
               <td><%= place_name opt.place %></td>
               <td><%= opt.votes.count %></td>
             </tr>
