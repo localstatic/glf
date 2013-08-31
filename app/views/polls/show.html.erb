@@ -71,11 +71,11 @@
 
             <label class="checkbox">
               <%= check_box_tag(checkbox_name, opt.id, checkbox_checked, checkbox_options) %>
-              <%= place_name_link opt.place %>
+              <%= place_name opt.place %>
             </label>
           <% else %>
             <label class="checkbox">
-              <%= place_name_link opt.place %>
+              <%= place_name opt.place %>
             </label>
           <% end %>
         <% end %>
