@@ -102,6 +102,9 @@ class PollsController < ApplicationController
     elsif vote_count > @poll.max_votes_per_user
       flash[:error] = "Unable to process #{"vote".pluralize(params[:poll_options].size)}. The maximum allowed votes for this poll is #{@poll.max_votes_per_user}."
       false
+    elsif vote_counts.values.max > 1
+      flash[:error] = "Unable to process #{"vote".pluralize(params[:poll_options].size)}. The maximum allowed votes for each place is #{@poll.max_votes_per_place}."
+      false
     else
       true
     end

@@ -13,6 +13,10 @@ class Poll < ActiveRecord::Base
     2
   end
 
+  def max_votes_per_place
+    1
+  end
+
   def open?
     self.ended_at.nil?
   end
