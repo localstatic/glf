@@ -1,16 +1,6 @@
-<tr class="<%= (place.disabled? ? "muted" : "") %>">
+<tr class="place <%= (place.disabled? ? "muted" : "") %>">
   <td>
-    <% if place.url.nil? || place.url.strip.empty? %>
-      <%= place.name %>
-    <% else %>
-      <%= place_name_link place %>
-    <% end %>
-    <% if place.disabled? %>
-      <span class="text-warning"><%= "[DISABLED] " %></span>
-    <% end %>
-    <span class="description">
-      <%= " - " + place.description.truncate(40) if place.description.present? %> 
-    </span>
+    <%= place_name place %>
   </td>
   <td><%= [place.city, place.state].join(", ").gsub(/^, /, "").gsub(/, $/, "") %></td>
   <td>

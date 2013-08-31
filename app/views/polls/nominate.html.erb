@@ -6,10 +6,10 @@
 <%= form_tag add_options_poll_path(@poll), class: "form-inline" do %>
   <table class="table table-hover">
     <% @places.each do |place| %>
-      <tr>
+      <tr class="place">
         <td class="controls">
           <% checkbox_name = "places[#{place.id}]" %>
-          <%= label_tag(checkbox_name, check_box_tag(checkbox_name, place.id) + " " + place_name_link(place), class: "checkbox") %>
+          <%= label_tag(checkbox_name, check_box_tag(checkbox_name, place.id) + " " + place_name(place), class: "checkbox") %>
         </td>
         <td>
           <%= [place.city, place.state].join(", ").gsub(/^, /, "").gsub(/, $/, "") %>
