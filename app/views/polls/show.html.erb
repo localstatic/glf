@@ -126,7 +126,7 @@
           <% max_count = @poll.poll_options.last.votes.count %>
           <% @poll.poll_options.reverse_each do |opt| %>
             <tr class="<%= "success" if !@poll.ended_at.nil? && opt.votes.count == max_count %>">
-              <td><%= place_name_link opt.place %></td>
+              <td><%= place_name opt.place %></td>
               <td><%= opt.votes.count %></td>
             </tr>
           <% end %>
